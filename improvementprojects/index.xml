@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learning &amp; Improving on TysonZ Net</title>
+    <link>/improvementprojects/</link>
+    <description>Recent content in Learning &amp; Improving on TysonZ Net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-au</language><atom:link href="/improvementprojects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mental Subnetting</title>
+      <link>/improvementprojects/mentalsubnetting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/improvementprojects/mentalsubnetting/</guid>
+      <description>Learning to calculate subnet ID, Broadbast Address, and Broadcast Range</description>
+    </item>
+    
+  </channel>
+</rss>

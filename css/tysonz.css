@@ -1,0 +1,48 @@
+p {
+    text-align: justify;
+}
+
+
+a:link {
+    color: lightseagreen; 
+    background-color: transparent; 
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: lightseagreen;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: lightseagreen;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color: lightskyblue;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
+
+.contentContainer{
+    background-color: #212529;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px; 
+    border-width: 1px; 
+    padding-left: 5%;
+    padding-right: 5%
+  }
+img {
+    transition:transform 0.25s ease;
+}
+
+img:target {
+    -webkit-transform:scale(1.5); /* or some other value */
+    transform:scale(1.5);
+}
+
+.panel-body {background-color:black !important;}

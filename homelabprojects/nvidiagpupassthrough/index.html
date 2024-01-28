@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/tysonz.css" rel="stylesheet">
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <title>TysonZ Net - Nvidia GPU passthrough – VMWare ESXi 6.7</title>
+  </head>
+  <body style="color: #EBFFEB;  background-color: #212529; ">
+    <a id="top"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212529; margin-left: 20%; margin-right:20%;">
+        <div class="container-fluid">
+            <span ><a class="navbar-brand" href="/">TysonZ Net</a></span> 
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="/homelabprojects/">HomeLab Projects</a></li>
+                            
+                            <li><a class="dropdown-item" href="/improvementprojects/">Learning &amp; Improving</a></li>
+                            
+                        
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.github.com/tysonz" target="_blank" rel="noopener">GitHub<svg width="16px" height="16px" viewBox="0 0 40 40" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 18.5 5 18.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="w-50 mx-auto">
+         
+ <div class="container">
+    <div class=" text-white contentContainer">
+
+        <center><h1>Nvidia GPU passthrough – VMWare ESXi 6.7</h1>
+        15 June 2019
+        </center>
+        <hr>
+
+        <p>It seems that there’s some confusion and a surprising lack of information regarding setting up Nvidia consumer GPU passthrough for ESXi 6.7. Here I will discuss what I had to do in order to get my consumer Nvidia 1050 Ti to work on a Windows 10 VM on an ESXi 6.7 HP DL380 G7 host.</p>
+<p><em>Disclosure, the following tips and guides worked for me, your needs and requirements may differ. Therefore, I urge you to use your best judgement before committing to anything provided in this article.</em></p>
+<hr>
+<h3 id="step-1-installing-the-gpu">Step 1: Installing the GPU</h3>
+<h5 id="fitting-the-gpu">Fitting the GPU</h5>
+<p>When installing the GPU into an enterprise server or another rack mount case, there may not always be room for the card to sit perpendicular to the motherboard. In this situation I have had luck using PCIe risers in my HP machines. HP PCIe risers allow the GPU to sit parallel to the motherboard, easily allowing a GPU to slide in to the 2U case.</p>
+<p>Please ensure when using a PCIe riser that the riser is capable of providing 75 Watts to the GPU, otherwise you will encounter issues!</p>
+<hr>
+<h5 id="powering-the-gpu">Powering the GPU</h5>
+<p>If you’re using an enterprise rack mounted server, ensure the server’s PCIe slot can power the card otherwise some modification to the PSU may be required, or an additional PSU will need to be installed before the GPU can be powered via a 6 pin PCIe power adapter.</p>
+<p>Typically, the PCIe slot on the motherboard can deliver 75 watts to the PCIe module attached. If your graphics card requires more than 75 Watts you will be required to power the GPU from the Power Supply using a 6-pin or 8-pin PCIe Power Connector. Obviously if you’re attempting to install the GPU in an enterprise server, the PSU may not have these cables available and you may need to either modify the existing PSU, replace the PSU with one that does support PCIe power, or add a second power supply to act as a dedicated power supple for the PCIe module.</p>
+<hr>
+<h3 id="step-2-configuring-esxi-67">Step 2: Configuring ESXi 6.7</h3>
+<h5 id="enabling-passthrough-in-esxi">Enabling Passthrough in ESXi</h5>
+<p>The first step after installing the power supply is ensuringthat the host, ESXi, can see the device installed.</p>
+<ol>
+<li>Boot your ESXi host</li>
+<li>Navigate to: <code>Host &gt; Manage &gt; Hardware</code></li>
+<li>Search for your Graphics Card.</li>
+</ol>
+<p><em>Once you have identified your Graphics Card you are ready to enable GPU Passthrough for the device.</em></p>
+<ol start="4">
+<li>Select the GPU and select “Enable Passthrough”.</li>
+</ol>
+<p>The host machine will require a reboot before it can start passing the GPU through to Virtual Machines.</p>
+<hr>
+<h3 id="step-3-virtual-machine-configuration">Step 3: Virtual Machine Configuration</h3>
+<h5 id="add-pcie-device-to-virtual-machine">Add PCIe device to Virtual Machine</h5>
+<p>Open the ESXi web client, select “Edit” on the Virtual Machine you wish to enable the GPU on. Click on the “Add other Device” button and select “PCIe Device”. Select your GPU / PCIe device from the list.</p>
+<hr>
+<h5 id="disable-hypervisorcpuidv0">Disable Hypervisor.CPUID.v0</h5>
+<p>Some users have found that in order to have their VMrecognise their Nvidia Graphics Card they are required to disable the “Hypervisor.CPUID.v0” flag.</p>
+<p>In order to set this flag, open your VM settings and navigate to:<br>
+<code>VM Options &gt; Advanced &gt; Edit Configurations</code><br>
+and add the flag:<br>
+<code>Hypervisor.CPUID.v0 = “FALSE”</code></p>
+<p>This flag determines whether the guest operating system is told by the host that it is running as a Virtual Machine. Disabling this flag prevents ESXi from telling the guest OS that it is a Virtual Machine.</p>
+<hr>
+<h3 id="faqs">FAQs</h3>
+<p><strong>Q: I can see the GPU in Device Manager, but applications don’t seem to be / aren’t able to utilize the GPU?</strong></p>
+<p>A: Yes! It’s possible your GPU won’t function without having a monitor plugged in to it. In order to get around this you will need to either plug a monitor in to the GPU, or buy / build a headless plug.</p>
+
+
+    </div>
+</div> 
+
+      
+        <hr>
+<center><a href="#top">Back to top</a>
+</br>
+    👨‍💻 Built by <a href="/">TysonZ</a> ||
+    ⌨️ Developed with <a href="https://github.com/gohugoio/hugo">Hugo</a></br>
+    </center>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    
+ 
+    </div> 
+  </body>
+</html>

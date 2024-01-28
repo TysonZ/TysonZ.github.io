@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/tysonz.css" rel="stylesheet">
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <title>TysonZ Net - Mental Subnetting</title>
+  </head>
+  <body style="color: #EBFFEB;  background-color: #212529; ">
+    <a id="top"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212529; margin-left: 20%; margin-right:20%;">
+        <div class="container-fluid">
+            <span ><a class="navbar-brand" href="/">TysonZ Net</a></span> 
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="/homelabprojects/">HomeLab Projects</a></li>
+                            
+                            <li><a class="dropdown-item" href="/improvementprojects/">Learning &amp; Improving</a></li>
+                            
+                        
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.github.com/tysonz" target="_blank" rel="noopener">GitHub<svg width="16px" height="16px" viewBox="0 0 40 40" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 18.5 5 18.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="w-50 mx-auto">
+         
+ <div class="container">
+    <div class=" text-white contentContainer">
+
+        <center><h1>Mental Subnetting</h1>
+        October 14, 2018
+        </center>
+        <hr>
+
+        <p>So for the last few weeks I’ve been trying to learn how to do Subnetting off the top of my head.<br>
+I’ve been using a great guide written by user <a href="https://community.infosecinstitute.com/discussion/38772/subnetting-made-easy">LordFlasheart on the techexams.net forums</a>. Here I’m going to explain how I interpreted the guide and am using it to subnet in my head…</p>
+<p><em>I’m not going to explain the concepts of Subnetting here, only the operations that I perform in my mind when calculating the Subnet, Broadcast Address, and Host Range of a given IP.</em></p>
+<hr>
+<h4 id="subnet-id-address">Subnet ID (Address)</h4>
+<p>The IP address we’re working with in this example is <code>192.168.73.33/21</code></p>
+<ol>
+<li>
+<p>Determine the next largest subnet block from the prefix<br>
+<code>blocks=[8,16,24,31]</code><br>
+<code>24 &gt; /21</code>, therefore 24 will be the block we’re working with.<br>
+<code>24</code> is the 3rd octet in the array above, so we select the third octet of (<code>192.168.73.33</code>) = <code>73</code> and save that for later.</p>
+</li>
+<li>
+<p>Calculate 2 ^ (block – prefix): This gives you the block size<br>
+<code>2</code><sup><code>(24 – /21)</code></sup> = <code>2</code><sup><code>3</code></sup> = <code>8</code><br>
+<code>8</code> is our block size</p>
+</li>
+<li>
+<p>Determine the subnet address: Octetx - (oxtetx <em>mod</em> blocksize) = subnet address.<br>
+Octetx = 3rd Octet = <code>192.168.73.33</code> = <code>73</code><br>
+<code>73 – (73*8)</code> = <code>73-1</code> = <code>72</code></p>
+</li>
+<li>
+<p>Any octets after the one we’re working with = <code>0</code><br>
+<code>192.168.72.0</code></p>
+</li>
+</ol>
+<p>Tada, that’s it. The Subnet ID of <code>192.168.73.33/21</code> is <code>192.168.72.0</code></p>
+<hr>
+<h4 id="broadcast-address">Broadcast Address</h4>
+<p>The IP address we’re working with in this example is <code>192.168.73.33/21</code></p>
+<ol>
+<li>
+<p>Determine the next largest subnet block from the prefix<br>
+<code>24 &gt; /21</code>, therefore 24 will be the block we’re working with.<br>
+<code>24</code> is the 3rd octet</p>
+</li>
+<li>
+<p>Calculate 2 ^ (block – prefix) – This gives you the block size<br>
+<code>2</code><sup><code>(24 – /21)</code></sup> <code>=</code> <code>2</code><sup><code>3</code></sup><code> = 8</code><br>
+<code>8</code> is our block size</p>
+</li>
+<li>
+<p>Determine the next subnet’s address:<br>
+Octetx - (oxtetx mod blocksize) + 8 = next subnet’s address.<br>
+<code>73 – (73 % 8) + 8</code> = <code>73 - 1 + 8</code> = <code>72 + 8</code> = <code>80</code></p>
+</li>
+<li>
+<p>Any octets after the one we’re working with = <code>0</code><br>
+<code>192.168.80.0</code></p>
+</li>
+<li>
+<p>Take 1 from that IP Address.<br>
+<code>192.168.80.0 – 1</code> = <code>192.168.79.255</code></p>
+</li>
+</ol>
+<p>Tada, that’s it. The Broadcast Address of <code>192.168.73.33/21</code> is <code>192.168.79.255</code></p>
+<hr>
+<h4 id="host-range">Host Range</h4>
+<p>The IP address we’re working with in this example is <code>192.168.73.33/21</code><br>
+Host Range = (Subnet ID + 1) to (Broadcsat Address – 1)<br>
+Host Range = <code>(192.168.72.0 + 1)</code> to <code>(192.168.79.255 – 1)</code><br>
+Host Range = <code>192.168.72.1</code> to <code>192.168.79.254</code></p>
+
+
+    </div>
+</div> 
+
+      
+        <hr>
+<center><a href="#top">Back to top</a>
+</br>
+    👨‍💻 Built by <a href="/">TysonZ</a> ||
+    ⌨️ Developed with <a href="https://github.com/gohugoio/hugo">Hugo</a></br>
+    </center>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    
+ 
+    </div> 
+  </body>
+</html>

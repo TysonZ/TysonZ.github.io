@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/tysonz.css" rel="stylesheet">
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <title>TysonZ Net - Homelab Licensing</title>
+  </head>
+  <body style="color: #EBFFEB;  background-color: #212529; ">
+    <a id="top"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212529; margin-left: 20%; margin-right:20%;">
+        <div class="container-fluid">
+            <span ><a class="navbar-brand" href="/">TysonZ Net</a></span> 
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="/homelabprojects/">HomeLab Projects</a></li>
+                            
+                            <li><a class="dropdown-item" href="/improvementprojects/">Learning &amp; Improving</a></li>
+                            
+                        
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.github.com/tysonz" target="_blank" rel="noopener">GitHub<svg width="16px" height="16px" viewBox="0 0 40 40" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 18.5 5 18.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="w-50 mx-auto">
+         
+ <div class="container">
+    <div class=" text-white contentContainer">
+
+        <center><h1>Homelab Licensing</h1>
+        13 Mar 2019
+        </center>
+        <hr>
+
+        <p>This is a topic I see a lot around the internet and particularly on the <a href="https://www.reddit.com/r/homelab/">/r/homelab</a> subreddit so I figured I’d chime in with my own opinion.</p>
+<p>Obviously, the concept of running genuine software with a valid licence key appeals to most of us, especially those who work with IT as we all know that running pirated / unlicensed software <strong>will</strong> come back and bite you.<br>
+Hence why I’m proud to say – <strong>I don’t pay for any of my Homelab specific licences</strong>.</p>
+<p>Wait, what? Why? You may ask. My reasons are painfully simple.</p>
+<div class="alert alert-secondary" role="alert">
+    <details>
+        <summary><b>Click here to read the TL;DR</b></summary>
+        I don’t use my Homelab environment for production purposes, therefore the software and services I use allow for free personal / educational usage or have free unlimited trials.  
+    </details>
+</div>
+<p>Let’s start with the most common server software you’re statistically going to be asking about and move back to the least probable…</p>
+<hr>
+<h3 id="windows-server">Windows Server</h3>
+<p>One word: <a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server">Evaluation</a>.</p>
+<p>Seriously, you can re-arm Windows Server 2016 six (6) times, and each evaluation period lasts for 180 days…<br>
+<code>(180 * 6) / 365 ≈ 3</code><br>
+3 years of FREE Windows Server 2016.<br>
+Now you seriously mean to tell me that domain controller you’re running is going to last for more than three years? Even if it does, as Homelabbers we’re constantly rebuilding our environments. Personally I’d rather use this as a chance to rebuild my Domain Controller every 1080 days and save myself $972 USD on a Windows Server 2019 Standard Licence and touch up my skills. (Let’s just ignore my educational licences for a minute…)<br>
+I hope I don’t have to tell anyone that those $20 Windows Server 2016 licences you see on the internet are more than likely illegitimate.</p>
+<p>Windows Server by default can and will host the majority of the services you require:</p>
+<ul>
+<li>Windows Domains,</li>
+<li>DNS,</li>
+<li>DHCP,</li>
+<li>File Sharing,</li>
+<li>Certificate Store,</li>
+<li>Web Server (IIS),</li>
+<li>Containers,</li>
+<li>Virtualization,<br>
+and many more, all of these things for free!</li>
+</ul>
+<p>Now I don’t suggest you run all of these services on Windows Server, but the option’s certainly there.</p>
+<p>Obviously this doesn’t work if you plan on using your environment for business / production purposes as doing this clearly breaks the Windows Server Evaluation Use Rights. If you plan on using Windows Server for production you will need to purchase a licence, or if you’re using hardware that came with a licence key, you can use that.</p>
+<hr>
+<h3 id="hypervisors">Hypervisors</h3>
+<p>I bet you were expecting me to jump straight into talking about Linux, right? Well I will get to that I promise, but first I’d like to discuss another topic I constantly see people talking about.
+“What Hypervisor should I use, and is it worth paying for those expensive VMware products?”</p>
+<p>Now full disclosure here, I am a huge ESXi fanboy so my first reaction is “Just use ESXi free. If you decide to pay for the licence do so using VMUG (VMware User Group), it’s only $200 USD / year!” but this may not be the best option for you depending on what you’re doing and what you want out of your Homelab experience.<br>
+I’ll just outline a few good free Hypervisors you can use.</p>
+<ul>
+<li><a href="https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.esxi.install.doc/GUID-016E39C1-E8DB-486A-A235-55CAB242C351.html">VMWare ESXi Free</a></li>
+<li><a href="https://www.proxmox.com/en/">Proxmox</a></li>
+<li><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server">Hyper-v Server 2016</a></li>
+<li><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server">Windows Server 2019 (EVAL)</a> w/ Hyper-v Role</li>
+</ul>
+<p>In the end you really don’t have to pay a cent, most Hypervisors come with a free version for the enthusiast with the option to pay down the road.<br>
+With the variety that we have available to us now, there is more than likely a Hypervisor that will suit your needs.</p>
+<hr>
+<h3 id="linux">Linux</h3>
+<p>Here we are, if you didn’t expect to see this coming, I worry for you.<br>
+The majority of systems and services that people run in their environments utilize free distributions of Linux.</p>
+<p>The most popular Linux based server operating system I see used by the community is by far <a href="https://ubuntu.com/download">Ubuntu 18.04 / 16.04</a>. It’s free and extremely powerful. Whether it be used to host:</p>
+<ul>
+<li>Docker,</li>
+<li>LAMP web server,</li>
+<li>Plex servers,</li>
+<li>Game servers,</li>
+<li>containers,<br>
+Ubuntu can do it all for FREE.</li>
+</ul>
+<p>Here I should also mention Docker because let’s be real, who runs Docker on anything other than a Linux based host? If you do, you’re pretty rare, most people I’ve interacted with either use Ubuntu or Alpine as their Docker hosts.</p>
+<hr>
+<h3 id="free-services">Free Services</h3>
+<p>“What should I run on my Homelab?” is a common question in the community, and honestly there isn’t a solid answer for you. In the end it really does come down to what you want to learn.<br>
+There are a lot of free services you can dabble in to stretch your mind, but the most common free services I see people running are:</p>
+<ul>
+<li><a href="https://www.proxmox.com/en/">Proxmox Hypervisor</a> for virtualization</li>
+<li><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server">Windows Server</a> to setup a Domain, DNS &amp; DHCP</li>
+<li><a href="https://ubuntu.com/download">Ubuntu Server 18.04</a> as an application host</li>
+<li><a href="https://www.docker.com">Docker</a> for containers (Ubuntu Server)</li>
+<li><a href="https://pi-hole.net">PiHole</a> (Raspberry Pi or Ubuntu Server)</li>
+<li><a href="https://www.pfsense.org">pfSense</a> as a Firewall / Router</li>
+<li><a href="https://www.plex.tv">Plex Server</a> for media (On Ubuntu Server)</li>
+<li><a href="https://www.truenas.com">FreeNAS / Truenas</a> for a DIY NAS</li>
+<li><a href="https://www.nginx.com">NGINXServer</a> on Ubuntu for Website Hosting</li>
+</ul>
+<p>If you’re just getting into the scene and are looking for something to get you started, feel free to pick one of the topics above for a good start.</p>
+<p>I hope I have answered at least one of your questions regarding Server Licencing costs, but in the end this hobby can be as expensive or as inexpensive as you want it to be. I’ve seen people build their networks using old used hardware they’ve obtained for free, equip that hardware with free to use software, and ultimately end up building amazing labs out of nothing.</p>
+
+
+    </div>
+</div> 
+
+      
+        <hr>
+<center><a href="#top">Back to top</a>
+</br>
+    👨‍💻 Built by <a href="/">TysonZ</a> ||
+    ⌨️ Developed with <a href="https://github.com/gohugoio/hugo">Hugo</a></br>
+    </center>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    
+ 
+    </div> 
+  </body>
+</html>

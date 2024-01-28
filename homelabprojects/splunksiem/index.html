@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/tysonz.css" rel="stylesheet">
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <title>TysonZ Net - Splunk: Splunk SIEM for my HomeLab?</title>
+  </head>
+  <body style="color: #EBFFEB;  background-color: #212529; ">
+    <a id="top"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212529; margin-left: 20%; margin-right:20%;">
+        <div class="container-fluid">
+            <span ><a class="navbar-brand" href="/">TysonZ Net</a></span> 
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="/homelabprojects/">HomeLab Projects</a></li>
+                            
+                            <li><a class="dropdown-item" href="/improvementprojects/">Learning &amp; Improving</a></li>
+                            
+                        
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.github.com/tysonz" target="_blank" rel="noopener">GitHub<svg width="16px" height="16px" viewBox="0 0 40 40" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 18.5 5 18.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="w-50 mx-auto">
+         
+ <div class="container">
+    <div class=" text-white contentContainer">
+
+        <center><h1>Splunk: Splunk SIEM for my HomeLab?</h1>
+        Sep 2022
+        </center>
+        <hr>
+
+        <p>So I&rsquo;m going to be straight forward here, this is learning process for me. I haven&rsquo;t implemented a Security Information and Event Management (SIEM) system before, and my experience in the professional space is essentially non existent. I&rsquo;ve seen Elastic used in a non-prod environment, so I&rsquo;m going in to this pretty blind.
+The reason I&rsquo;m choosing to go with Splunk in my HomeLab is the general consensus among the <a href="https://www.reddit.com/r/netsec/">/r/NetSec</a> &amp; <a href="https://www.reddit.com/r/cybersecurity">/r/CyberSecurity</a> subreddit is that Splunk is the most popular SIEM found in SOCs, so I&rsquo;m gonna shoot for that.</p>
+<h3 id="achievements-in-this-project">Achievements in this Project</h3>
+<ul>
+<li>Set up a Debian 11 Container</li>
+<li>Install Splunk Enterprise on Debian 11</li>
+<li>Set up external Data Input in Splunk to accept data from pfSense firewall</li>
+<li>Set up pfSense to send firewall logging data to Splunk</li>
+<li>Install Splunk Apps (TA pfSense to translate pfSense&rsquo;s data)</li>
+<li>Viewing external firewall logs within Splunk</li>
+<li>Set up Splunk Alerting (License usage)</li>
+</ul>
+<hr>
+<h3 id="getting-started">Getting Started</h3>
+<p>First thing&rsquo;s first, I went straight to <a href="https://www.splunk.com/">splunk.com</a> and created a free account to downloaded the Splunk Enterprise 9.0.1 software.
+Obviously Splunk is a paid solution, so the <a href="https://docs.splunk.com/Documentation/Splunk/latest/Admin/MoreaboutSplunkFree">free version limitations</a> only allows <em>500MB per day</em>. Should be enough for our HomeLab.</p>
+<hr>
+<h3 id="setting-up-the-host-environment">Setting up the host environment</h3>
+<p>Reviewing the <a href="https://docs.splunk.com/Documentation/Splunk/latest/Installation/Systemrequirements">Splunk System Requirements</a> leads me to believe that a Linux host is the best bet, plus I can use Debian, so i&rsquo;m going to set Splunk up as a Debian 11 LXC container on my Proxmox hypervisor.</p>
+<center>
+  <a href="/img/SplunkSIEM/CreatingLXCContainer.jpeg"> <img src="/img/SplunkSIEM/CreatingLXCContainer.jpeg" style="width: 50%; height:50%;"/></a>
+  </br>
+  <small><i>Click to open</i></small>
+</center>
+<hr>
+<h3 id="installing-splunk">Installing Splunk</h3>
+<p>Now I have my Debian container setup and a terminal to connect to, it&rsquo;s time to install splunk. Reading the <a href="https://docs.splunk.com/Documentation/Splunk/9.0.1/Installation/InstallonLinux">Splunk Installation Manual - Install On Linux documentation</a> makes the general installation super simple for Debian.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">wget https://download.splunk.com/products/splunk/releases/9.0.1/linux/splunk-9.0.1-82c987350fde-linux-2.6-amd64.deb
+dpkg -i splunk-9.0.1-82c987350fde-linux-2.6-amd64.deb 
+/opt/splunk/bin/splunk start
+</code></pre></div><p>Read through the license, Space to zoom through.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">Do you agree with this license? <span style="color:#f92672">[</span>y/n<span style="color:#f92672">]</span>: y
+Please enter an administrator username: admin
+<span style="color:#75715e"># Skipping the terminal vomit</span>
+The Splunk web interface is at http://LABSIEM01:8000
+</code></pre></div><p>The boring stuff is over, now we have a beautiful web interface!</p>
+<center>
+  <a href="/img/SplunkSIEM/SplunkWebInterfaceLogin.jpeg"> <img src="/img/SplunkSIEM/SplunkWebInterfaceLogin.jpeg" style="width: 50%; height:50%;"/></a>
+  </br>
+  <small><i>Click to open</i></small>
+</center>
+<hr>
+<h3 id="configuring-splunk">Configuring Splunk</h3>
+<p><em>Before downloading make sure you signout and signin again to your Splunk account to force the validation email, otherwise it will tell you your password is incorrect!</em></p>
+<p>Now that we have the application installed and a web interface available, let&rsquo;s login and configure Splunk to accept some data. I&rsquo;ve chosen to start by logging data from my pfSense firewall, so first let&rsquo;s setup a Data Input to syslog logging on the default UDP 514 port.</p>
+<p><strong>Settings</strong> &gt; <strong>Data Inputs</strong></p>
+<p>Create new UDP Input Type</p>
+<ul>
+<li><strong>Input Type</strong>: UDP Port</li>
+<li><strong>Port Number</strong>: 514</li>
+<li><strong>Source Name Override</strong>: pfSense</li>
+<li><strong>Restrict to Host</strong>: (pfSense IPAddr)</li>
+</ul>
+<p><strong>Next</strong></p>
+<ul>
+<li><strong>Source Type</strong>: Select &gt; pfsense</li>
+<li><strong>App Context</strong>: Search and Reporting (search)</li>
+<li><strong>Host</strong>: IP</li>
+<li><strong>Index</strong> Default</li>
+</ul>
+<p>Review and select <strong>Apply</strong>.</p>
+<center>
+  <a href="/img/SplunkSIEM/Splunk_PFSenseReview.jpeg"> <img src="/img/SplunkSIEM/Splunk_PFSenseReview.jpeg" style="width: 50%; height:50%;"/></a>
+  </br>
+  <small><i>Click to open</i></small>
+</center>
+<p>Now that we have created the Data Input for Syslog, we can configure out application to send syslog data to Splunk.
+*I&rsquo;ll return to this page and use the <strong>Start Searching</strong> button after we configure pfSense to review the pfSense data.</p>
+<hr>
+<h3 id="installing-ta-pfsense-application-within-splunk">Installing &ldquo;TA pfSense&rdquo; application within Splunk</h3>
+<p>Quick and easy to do, required because pfSense makes parsing difficult when I want to organize the data I&rsquo;m logging.</p>
+<p>Within Splunk, go to Browse More Apps and search for &ldquo;pfSense&rdquo;, and install the &ldquo;TA pfSense&rdquo; application.</p>
+<p>After installing this application, event data will be parsed nicely so we can filter on things like destination/source IP:port, and packet action (dropped, blocked, etc). Nice to have.</p>
+<hr>
+<h3 id="configuring-pfsense">Configuring pfSense</h3>
+<p>pfSense logging is pretty simple, Login to the web interface, then navigate to <strong>Status</strong> &gt; <strong>System Logs</strong> &gt; <strong>Settings</strong> and enable <strong>Enable Remote Logging</strong> (<em>Send log messaged to remote syslog server</em>).</p>
+<p>Once Enabled, I configured pfSense to send <strong>All</strong> syslog data to the Splunk server IPaddress:514.</p>
+<center>
+  <a href="/img/SplunkSIEM/PFSense_SetupRemoteLogging.jpeg"> <img src="/img/SplunkSIEM/PFSense_SetupRemoteLogging.jpeg" style="width: 50%; height:50%;"/></a>
+  </br>
+  <small><i>Click to open</i></small>
+</center>
+<hr>
+<h3 id="viewing-the-application-data-in-splunk">Viewing the application data in Splunk</h3>
+<p>Back in Splunk, I loaded up the Search &amp; Reporting application and ran a search for all data with sourcetype=&ldquo;pfSense&rdquo;.</p>
+<center>
+  <a href="/img/SplunkSIEM/Splunk_PFSenseData.jpeg"> <img src="/img/SplunkSIEM/Splunk_PFSenseData.jpeg" style="width: 75%; height:75%;"/></a>
+  </br>
+  <small><i>Click to open</i></small>
+</center>
+<hr>
+<h3 id="setting-up-license-usage-alert">Setting up License Usage Alert</h3>
+<p>Before I go too far I need to remember that I am on a trial of Splunk. I only have a 500MB/day quota, so let&rsquo;s setup an alert using the Platform Alerts feature to let me know when I am nearing my daily quota.</p>
+<p>Let&rsquo;s navigate to Settings &gt; Monitoring Console &gt; Settings &gt; Alerts Setup and enable the DMC Alert - Total License Usage Near Daily Quota alert.
+I want an excuse to dig in to the alerting feature, so I also went in to the Advanced Edit menu and adjusted the trigger to raise the severity from Medium to High.</p>
+<hr>
+<h3 id="going-further">Going further</h3>
+<p>What I&rsquo;ve accomplished today hasn&rsquo;t even begun to touch on the complexities of  Splunk and what it can do. Currently I&rsquo;m building a dashboard for pfSense, but I&rsquo;m going to seek some external resources to see if I can get a better grasp of Splunk&rsquo;s Search Processing Language.</p>
+
+
+    </div>
+</div> 
+
+      
+        <hr>
+<center><a href="#top">Back to top</a>
+</br>
+    👨‍💻 Built by <a href="/">TysonZ</a> ||
+    ⌨️ Developed with <a href="https://github.com/gohugoio/hugo">Hugo</a></br>
+    </center>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    
+ 
+    </div> 
+  </body>
+</html>

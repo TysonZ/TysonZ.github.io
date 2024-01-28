@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/tysonz.css" rel="stylesheet">
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <title>TysonZ Net - Network Diagram: October 2018</title>
+  </head>
+  <body style="color: #EBFFEB;  background-color: #212529; ">
+    <a id="top"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212529; margin-left: 20%; margin-right:20%;">
+        <div class="container-fluid">
+            <span ><a class="navbar-brand" href="/">TysonZ Net</a></span> 
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="/homelabprojects/">HomeLab Projects</a></li>
+                            
+                            <li><a class="dropdown-item" href="/improvementprojects/">Learning &amp; Improving</a></li>
+                            
+                        
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.github.com/tysonz" target="_blank" rel="noopener">GitHub<svg width="16px" height="16px" viewBox="0 0 40 40" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 18.5 5 18.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="w-50 mx-auto">
+         
+ <div class="container">
+    <div class=" text-white contentContainer">
+
+        <center><h1>Network Diagram: October 2018</h1>
+        26 Oct 2018
+        </center>
+        <hr>
+
+        <p>I’ve managed to finish migrating all of my VMs to the new DL380 G7 ESXi Host. Afterwards, I found some time to sit down and draw a quick network diagram. I then posted this diagram to an online forum and received some good questions &amp; suggestions.</p>
+<center>
+  <a href="/img/octdiagram.jpg"> <img src="/img/octdiagram.jpg" style="width: 50%; height= 50%;"/></a>
+  </br>
+  <small>Click to open</small>
+</center>
+<hr>
+<h3 id="suggestions-received">Suggestions Received</h3>
+<ol>
+<li>Move the Xbox and Media PC off of the main network’s subnet as if the HTPC is running many 3rd party programs, which it is, it may be considered untrusted.</li>
+</ol>
+<p>I like this suggestion, and I’ve actually implemented the changes into my current environment!</p>
+<ol start="2">
+<li>Use vlans! Why aren’t you using vlans?</li>
+</ol>
+<p>I haven’t found a use case for vlans in my current environment yet. I have some experience with using them in the past, so incorporating them into my lab would be a beneficial learning experience.</p>
+<hr>
+<h3 id="questions-people-asked">Questions People Asked</h3>
+<p><strong>What’s your thought process on subnetting?</strong><br>
+The reason I have a 10.0.0.x network and a 192.168.1.x network is because I want my VM lab to have nothing to do with the rest of my network. It’s for testing stuff mostly, so I didn’t want to confuse myself .</p>
+<p><strong>What are your projects/plans for all of that RAM?</strong><br>
+I want to get to a point where I’m emulating my work’s environment, they have a few more servers there so I’ll need the ram to be able to mimic it all on one machine. That and I run my own VMs for home.</p>
+<p><strong>Why the switches instead of PFsense vlans?</strong><br>
+pfSense is only 3 days old, I haven’t had the chance to use it. I&rsquo;ll be adding vlans to the list of things I test before using it as my main firewall/router. (Lots of people suggested vlans!)</p>
+<p><strong>Whats your end goal/learning objective?</strong><br>
+Kinda mentioned in Q2. I want to replicate my work’s environment so I can become more familiar with networking and the likes. I’m a year into working in IT as a qualified professional and just want to be able to test stuff in my own environment without the risk of destroying my career with the press of a button.</p>
+<p><strong>What’s running on the TX1330?</strong><br>
+It was my first server, so it was my ESXi host running everything. (I also had a 1050 Ti in there for GPU passthrough to one of the VMs)
+Currently it’s just a datastore but I’m looking to turn it into either a NAS or even just a windows server with a bunch of shares. I need to figure out the pros and cons of each before I do.
+I’m glad someone asked about it since it is by far my favourite server. Only pulls 50W when idling so it’s cheap as chips to run. (That’s how I justified the cost).</p>
+
+
+    </div>
+</div> 
+
+      
+        <hr>
+<center><a href="#top">Back to top</a>
+</br>
+    👨‍💻 Built by <a href="/">TysonZ</a> ||
+    ⌨️ Developed with <a href="https://github.com/gohugoio/hugo">Hugo</a></br>
+    </center>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    
+ 
+    </div> 
+  </body>
+</html>

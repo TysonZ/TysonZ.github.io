@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/tysonz.css" rel="stylesheet">
+    <link href="/css/syntax.css" rel="stylesheet">
+
+
+    <title>TysonZ Net - Lab Update: October 2019</title>
+  </head>
+  <body style="color: #EBFFEB;  background-color: #212529; ">
+    <a id="top"></a>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #212529; margin-left: 20%; margin-right:20%;">
+        <div class="container-fluid">
+            <span ><a class="navbar-brand" href="/">TysonZ Net</a></span> 
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Projects
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                            
+                            <li><a class="dropdown-item" href="/homelabprojects/">HomeLab Projects</a></li>
+                            
+                            <li><a class="dropdown-item" href="/improvementprojects/">Learning &amp; Improving</a></li>
+                            
+                        
+
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.github.com/tysonz" target="_blank" rel="noopener">GitHub<svg width="16px" height="16px" viewBox="0 0 40 40" style="cursor:pointer"><g stroke-width="2.1" stroke="#666" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 13.5 17 18.5 5 18.5 5 7.5 11 7.5"></polyline><path d="M14,4.5 L20,4.5 L20,10.5 M20,4.5 L11,13.5"></path></g></svg></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="w-50 mx-auto">
+         
+ <div class="container">
+    <div class=" text-white contentContainer">
+
+        <center><h1>Lab Update: October 2019</h1>
+        15 Oct 2019
+        </center>
+        <hr>
+
+        <p>This month I have been working on re-purposing my Homelab to support clean and reliable power, and ease of management as a result of recent power outages / blips in my neighbourhood, causing many headaches after the event.</p>
+<p>In doing so, I have integrated an APC UPS as a fail-over power supply, allowing all of my critical servers to utilize the UPS as a secondary power source (due to dual power supplies) in the case of a power outage. I have also implemented a simple yet effective KVM solution to assist with system management.</p>
+<p>A diagram of my current power setup and cost analysis can be seen below.</p>
+<p>No it can&rsquo;t. This has been ripped from an old site and I haven&rsquo;t imported the image yet!</p>
+<hr>
+<h3 id="power-redundancy">Power Redundancy</h3>
+<p>The source of power for all mission critical systems is provided via the <a href="https://www.apc.com/shop/uk/en/products/APC-Smart-UPS-3000VA-USB-Serial-RM-2U-230V/P-SUA3000RMI2U?isCurrentSite=false">APC Smart UPS 3000 RM</a> – <a href="https://en.wikipedia.org/wiki/Uninterruptible_power_supply">Uninterruptible Power Supply</a>. Redundant power is supplied to the three mission critical servers, allowing their dual power supplies to choose and balance the load between mains and UPS power, protecting them from a failure of either the mains supply (power outage), or the UPS system.</p>
+<p>All networking and management equipment operate via the UPS power source, leaving the UPS as a point of failure for the network. This is an acceptable risk in my environment as the hardware is physically checked daily, therefore the chance of UPS failure and an <strong>unrelated</strong> mains failure are low. (If a mains failure kills the UPS before PowerChute has time to shut down my system, we have bigger issues).</p>
+<p>The total tested run-time for the lab is 40 minutes when utilizing the core DL380 Server, TX1330 M1 Storage Server, and miscellaneous networking equipment. The total runtime for the entire lab inclusive of all the bells and whistles (assuming PowerChute doesn’t shut anything down) is 25 minutes.</p>
+<hr>
+<h3 id="running-costs">Running Costs</h3>
+<center>
+  <a href="/img/lackRackPower2019.jpg"> <img src="/img/lackRackPower2019.jpg" style="width: 50%; height= 50%;"/></a>
+  </br>
+  <small>Click to open</small>
+</center>
+On the right-hand side of the above image I have included a summary of the power usage of my Homelab and calculated the running costs of the total. I have also categorized this information into “<span style="color:red;">Required</span>” and “<span style="color:green;">Optional</span>“, to differentiate the minimum and maximum costs of running my Homelab.
+<p>The minimum running costs of my Homelab hardware is $53.50 AUD per month, and the maximum running cost is $85.90. This obviously does not include the cost of the internet connection as this connection isn’t solely for the lab. Although to be clear and fair with myself, I do pay a few subscriptions:</p>
+<ul>
+<li>$80 AUD monthly for my 100/40 mpbs internet connection</li>
+<li>$290 AUD annually for VMUG Advantage</li>
+<li>$16 AUD monthly for G Suite</li>
+<li>≈$4.5 AUD monthly for an OVH VPS<br>
+Bringing the total costs to $178.16 AUD minimum and $210.56 maximum.</li>
+</ul>
+<hr>
+<h3 id="management-via-kvm">Management via KVM</h3>
+<p>Also new to this month is the addition of a cheap 4 Port VGA KVM Switch from eBay, allowing easy physical management to the NAS and OptiPlex machine, and backup management for the HP Servers in the case where the iLO is not available.</p>
+<hr>
+<h3 id="new-machine--optiplex-9020">New Machine – OptiPlex 9020</h3>
+<p>Not an overly exciting one, but I had to pick this machine up as it was on sale for $88 AUD delivered. See the <a href="https://i.dell.com/sites/doccontent/shared-content/data-sheets/en/Documents/optiplex-9020-micro-technical-spec-sheet.pdf">OptiPlex 9020 SFF</a>!<br>
+Packing a ripper Intel Core i3-4130 Processor, Integrated Intel 4600 HD Graphics, a whopping 4GBs RAM, and a 500GB HDD, with a Windows 10 licence, this small form factor PC was a deal.<br>
+Of course, I instantly upgraded the RAM to 4x4GB modules (of which I had been donated by an ex colleague, thanks Derek!), bringing the total available RAM to 16GB.</p>
+<p>This machine doesn’t have a purpose at the moment other than acting as a dedicated file copier for ripping video footage off of my Go Pro, which acts as a dash cam for my motorcycle. I’ll be searching for a purpose for this machine…</p>
+
+
+    </div>
+</div> 
+
+      
+        <hr>
+<center><a href="#top">Back to top</a>
+</br>
+    👨‍💻 Built by <a href="/">TysonZ</a> ||
+    ⌨️ Developed with <a href="https://github.com/gohugoio/hugo">Hugo</a></br>
+    </center>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    
+ 
+    </div> 
+  </body>
+</html>

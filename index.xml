@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tysonz Net on TysonZ Net</title>
+    <link>/</link>
+    <description>Recent content in Tysonz Net on TysonZ Net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-au</language><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>APC UPS Quick Guide</title>
+      <link>/homelabprojects/apcupsguide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/apcupsguide/</guid>
+      <description>This article is a personal reference I made when deciding on an APC UPS.</description>
+    </item>
+    
+    <item>
+      <title>Homelab Licensing</title>
+      <link>/homelabprojects/homelablicensing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/homelablicensing/</guid>
+      <description>I don&amp;rsquo;t license my homelab, except for when I do&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>Lab Update: New DL380 G7</title>
+      <link>/homelabprojects/newdl380g7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/newdl380g7/</guid>
+      <description>I&amp;rsquo;ve managed to pick up a used DL380 G7 from the local classifieds! But why bother “upgrading”?..</description>
+    </item>
+    
+    <item>
+      <title>Lab Update: October 2019</title>
+      <link>/homelabprojects/labupdateoct2019/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/labupdateoct2019/</guid>
+      <description>It’s been a year since I started documenting my Homelab adventure. Let’s jump into an overview on what’s new.</description>
+    </item>
+    
+    <item>
+      <title>Mental Subnetting</title>
+      <link>/improvementprojects/mentalsubnetting/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/improvementprojects/mentalsubnetting/</guid>
+      <description>Learning to calculate subnet ID, Broadbast Address, and Broadcast Range</description>
+    </item>
+    
+    <item>
+      <title>Network Diagram: October 2018</title>
+      <link>/homelabprojects/networkdiagram2018/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/networkdiagram2018/</guid>
+      <description>October 2018&amp;rsquo;s Network Diagram</description>
+    </item>
+    
+    <item>
+      <title>Nvidia GPU passthrough – VMWare ESXi 6.7</title>
+      <link>/homelabprojects/nvidiagpupassthrough/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/nvidiagpupassthrough/</guid>
+      <description>Setting up Nvidia GPU Passthrough on VMWare ESXi 6.7</description>
+    </item>
+    
+    <item>
+      <title>Splunk: Learning SPL</title>
+      <link>/homelabprojects/splunkspl/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/splunkspl/</guid>
+      <description>Let&amp;rsquo;s learn to process those events in Splunk!</description>
+    </item>
+    
+    <item>
+      <title>Splunk: Splunk SIEM for my HomeLab?</title>
+      <link>/homelabprojects/splunksiem/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/homelabprojects/splunksiem/</guid>
+      <description>Let&amp;rsquo;s manage those events generated in the HomeLab with Splunk</description>
+    </item>
+    
+  </channel>
+</rss>
